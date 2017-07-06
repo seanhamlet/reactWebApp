@@ -1,19 +1,29 @@
-// use uppercase - naming convention for React components
 var Greeter = React.createClass({
-  // define behavior for component
+  // define default props for component
+  getDefaultProps: function () {
+    // return an object of properties
+    return {
+      name: 'React',
+      message: 'This is from a component!'
+    };
+  },
   render: function () {
-    // even though we have multiple html elements (h1 and p)
-    // can only return one "root" element (div)
+    // get props for component
+    var name = this.props.name;
+    var message = this.props.message;
+
     return (
       <div>
-        <h1>Hello React!</h1>
-        <p>This is from a component.</p>
+        <h1>Hello {name}!</h1>
+        <p>{message + '!!'}</p>
       </div>
     );
   }
 });
 
+var firstName = 'Sean';
+
 ReactDOM.render(
-  <Greeter/>,
+  <Greeter name={firstName} message="Message from prop!"/>,
   document.getElementById('app')
 );
