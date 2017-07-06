@@ -1,7 +1,19 @@
-// Using html and JSX (JavaScript XML) in this example
-// not making a React component
-// h1 tag is what is 'rendered' and 'location' to be rendered is next parameter
+// use uppercase - naming convention for React components
+var Greeter = React.createClass({
+  // define behavior for component
+  render: function () {
+    // even though we have multiple html elements (h1 and p)
+    // can only return one "root" element (div)
+    return (
+      <div>
+        <h1>Hello React!</h1>
+        <p>This is from a component.</p>
+      </div>
+    );
+  }
+});
+
 ReactDOM.render(
-  <h1>Hello React!</h1>,
+  <Greeter/>,
   document.getElementById('app')
 );
