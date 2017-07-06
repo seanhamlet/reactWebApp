@@ -2,10 +2,23 @@
 <!DOCTYPE html> 
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <!-- babel lets us use ES6 features in our JavaScript today -->
+    <!-- converts next-gen ES6 to whatever JavaScript browser supports -->
+    <!-- converts JSX into JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <!-- react and react-dom both required if using react on web -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <!-- react-dom is only necessary when using react on web -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <!--container 'div' for react app -->
+    <!--all react apps require element that it can attach to -->
+    <div id="app"></div>
+
+    <!-- link to separate jsx file with React code-->
+    <script type="text/babel" src="app.jsx"></script>
   </body>
 </html>
