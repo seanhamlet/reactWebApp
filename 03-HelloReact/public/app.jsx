@@ -1,18 +1,31 @@
 var GreeterMessage = React.createClass({
   render: function () {
+    var name = this.props.name;
+    var message = this.props.message;
+    
     return (
       <div>
-        <h1>Some H1</h1>
-        <p>Some paragraph</p>
+        <h1>Hello {name}!</h1>
+        <p>{message}</p>
       </div>
     );
   }
 });
 
 var GreeterForm = React.createClass({
+  onFormSubmit: function (e) {
+    e.preventDefault();
+
+    var name = this.refs.name.value;
+
+    if (name.length > 0) {
+      this.refs.name.value = '';
+      this.props.onNewName(name);
+    }
+  },
   render: function () {
     return (
-        <form>
+        <form onSubmit={this.onFormSubmit}>
           <input type="text" ref="name"/>
           <button>Set Name</button>
         </form>
@@ -26,7 +39,7 @@ var Greeter = React.createClass({
     // return an object of properties
     return {
       name: 'React',
-      message: 'This is from a component!'
+      message: 'This is the default message!'
     };
   },
   getInitialState: function () {
@@ -34,26 +47,10 @@ var Greeter = React.createClass({
       name: this.props.name
     };
   },
-  onButtonClick: function (e) {
-    // prevents form from submitting and causing a page refresh
-    // since we are working with React we want to use single page application ideas
-    // one of those ideas is to NOT have browser completely refresh the app
-    e.preventDefault();
-
-    var nameRef = this.refs.name;
-
-    // this.refs contains the "ref" name defined in render in the input element
-    // need to get "value" from input called "name" to get it's textbox value
-    var name = nameRef.value;
-    // reset input to nothing on submit click
-    nameRef.value = '';
-
-    // make sure empty string doesn't update state
-    if (typeof name === 'string' & name.length > 0) {
-      this.setState({
-        name: name
-      });
-    }
+  handleNewName: function (name) {
+    this.setState({
+      name: name
+    });
   },
   render: function () {
     // get props for component
@@ -62,19 +59,8 @@ var Greeter = React.createClass({
 
     return (
       <div>
-        <h1>Hello {name}!</h1>
-        <p>{message + '!!'}</p>
-
-        <GreeterMessage/>
-
-        {/* ref is a React attribute that allows us to give an 
-        element name we want to access later*/}
-        <form onSubmit={this.onButtonClick}>
-          <input type="text" ref="name"/>
-          <button>Set Name</button>
-        </form>
-
-        <GreeterForm/>
+        <GreeterMessage name={name} message={message}/>
+        <GreeterForm onNewName={this.handleNewName}/>
       </div>
     );
   }
@@ -83,6 +69,6 @@ var Greeter = React.createClass({
 var firstName = 'Sean';
 
 ReactDOM.render(
-  <Greeter name={firstName} message="Message from prop!"/>,
+  <Greeter name={firstName}/>,
   document.getElementById('app')
 );
