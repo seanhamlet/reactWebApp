@@ -45,6 +45,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var greeter = __webpack_require__(1);
+
 	greeter();
 
 /***/ }),
