@@ -15,7 +15,7 @@ module.exports = {
       {
         loader: 'babel-loader', // tell babel-loader to get files, and parse them with react and es2015
         query: { // tell loader what to do
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015', 'stage-0']
         },
         test: /\.jsx?$/, // which files to get (in this case, all *.jsx files)
         exclude: /(node_modules|bower_components)/ // folders to exclude
