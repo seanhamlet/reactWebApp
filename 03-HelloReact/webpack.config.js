@@ -5,6 +5,12 @@ module.exports = {
     filename: './public/bundle.js'
   },
   resolve: {
+    root: __dirname, // ('HelloReact' folder) allows you to remove './' from path to required components
+    alias: {
+      Greeter: 'public/components/Greeter.jsx',
+      GreeterMessage: 'public/components/GreeterMessage.jsx',
+      GreeterForm: 'public/components/GreeterForm.jsx'
+    },
     extensions: ['', '.js', '.jsx'] // list of file extensions we want to process
   },
   module: {
