@@ -8,7 +8,10 @@ module.exports = {
     root: __dirname, // ('HelloReact' folder) allows you to remove './' from path to required components
     alias: {
       Main: 'app/components/Main.jsx',
-      Nav: 'app/components/Nav.jsx'
+      Nav: 'app/components/Nav.jsx',
+      Weather: 'app/components/Weather.jsx',
+      About: 'app/components/About.jsx',
+      Examples: 'app/components/Examples.jsx'
     },
     extensions: ['', '.js', '.jsx'] // list of file extensions we want to process
   },
