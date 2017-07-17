@@ -24945,28 +24945,52 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      location: 'Miami',
-	      temp: 88
+	      isLoading: false
 	    };
 	  },
 	  handleSearch: function handleSearch(location) {
 	    // 'that' variable: simple way to allow access to 'this' 
 	    //    even after entering openWeatherMap.getTemp function where 'this' binding gets lost
 	    var that = this;
+
+	    // set isLoading to true while fetching weather results
+	    this.setState({ isLoading: true });
+
 	    openWeatherMap.getTemp(location).then(function (temp) {
+	      // set isLoading back to false when weather results are returned so that temp and location can be
+	      // used to display weather (renderMessage function)
 	      that.setState({
+	        isLoading: false,
 	        location: location,
 	        temp: temp
 	      });
 	    }, function (errorMessage) {
+	      that.setState({
+	        isLoading: false
+	      });
 	      alert(errorMessage);
 	    });
 	  },
 	  render: function render() {
 	    var _state = this.state,
+	        isLoading = _state.isLoading,
 	        temp = _state.temp,
 	        location = _state.location;
 
+	    // allows us to conditionally render components based on 'state'
+	    // use {renderMessage()} (jsx expression) call below in return statement
+
+	    function renderMessage() {
+	      if (isLoading) {
+	        return React.createElement(
+	          'h3',
+	          null,
+	          'Fetching weather...'
+	        );
+	      } else if (temp && location) {
+	        return React.createElement(WeatherMessage, { location: location, temp: temp });
+	      }
+	    }
 
 	    return React.createElement(
 	      'div',
@@ -24977,7 +25001,7 @@
 	        'Weather Component'
 	      ),
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
-	      React.createElement(WeatherMessage, { location: location, temp: temp })
+	      renderMessage()
 	    );
 	  }
 	});
@@ -25088,8 +25112,8 @@
 	      } else {
 	        return res.data.main.temp;
 	      }
-	    }, function (res) {
-	      throw new Error(res.data.message);
+	    }, function (error) {
+	      throw new Error(error.response.data.message);
 	    });
 	  }
 	};
